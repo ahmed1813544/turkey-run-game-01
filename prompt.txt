@@ -1,0 +1,38 @@
+[Subagent Task]: 
+Build the make.fun bounty entry for turkey-run-game-01 ("Make the best turkey escape game", $250, deadline 2026-11-29T02:00Z, FREE entry, program/v1). The competition opened 2026-11-27T02:00Z and your session starts after that, so your work is inside the window.
+
+WORK DIR: ~/workspace/bounties/turkey-run-game-01/entry/ — this will become the GitHub repo. Kit (already downloaded, DO NOT re-download): ~/workspace/bounties/turkey-run-game-01/turkey-run-game-01-kit/ — read its RULES.txt fully first (especially "The task", "The gate", "The dossier", "Getting started", "Before you submit", "Enter") and follow it exactly. The kit's starter/ shows the required repo layout only — DO NOT copy its game code, art or text: build a fully original game. (The starter handed in unchanged plays as a house game and wins nothing.)
+
+WHAT TO BUILD — an original 2D canvas turkey escape game, working title "Gobble Dash: The Great Thanksgiving Escape":
+- The player is a turkey escaping becoming Thanksgiving dinner. The farmer chases it through three stages of rising difficulty: the farmyard, the barn, then the farmhouse kitchen.
+- Hazards: the farmer (chases, searches, corners), falling carving knives, the glowing oven, plus fences / hay bales / kitchen clutter to dodge around. Collect corn for score. Jump and hide (haystacks / crates) as escape tools. Lives, score and distance shown in a HUD.
+- Complete game flow, all visible in screenshots: a title screen, a run in play with HUD (score, distance, lives), and an end screen for both outcomes — caught by the farmer, and escaped (reaching the forest gate at the end of the kitchen stage) — with a restart button. Keyboard (arrows/WASD + Space to jump) and mouse (click buttons) controls.
+- Feel: responsive controls, clear feedback when spotted / hit / caught / escaped, synthesized WebAudio sound effects and a simple music loop (no audio files — generate all sound in code), difficulty that ramps fairly.
+- Look: original Thanksgiving art drawn entirely in code (canvas vector drawing — no image files, no copied art), coherent autumn palette, comic timing, readable at a glance.
+- Structure: split the game's own source into several files with one clear job each, named for what they do (for example separate files for the turkey, the farmer, obstacles/hazards, audio, rendering, the game loop / state machine, and the level/stage definitions). The judge reads file and function names in the dossier outline, so name things clearly.
+- No network anywhere in the game: every file it loads lives under game/ or is a data URI. No eval, no service worker, no cookies. No external libraries unless vendored as a minified file (prefer no library at all — plain canvas).
+
+REPO LAYOUT (as the kit starter shows): main.ts at the root (Node 22, standard library only — it copies game/ and screenshots/ into the output directory named by the MAKEFUN_OUTPUT_DIR environment variable, defaulting to /output, and writes /output/dossier.json using buildDossier from vendor/makefun-game.ts), vendor/makefun-game.ts copied from the kit UNCHANGED, game/ with index.html plus the game files, screenshots/ with 3 or 4 PNG/JPEG screenshots, an MIT LICENSE, a README.md, and serve.ts is optional (a tiny static server for local play-testing is handy).
+- Write ALL entry code yourself directly into files with write/edit tools. Never paste code from chat, tool results, or the kit starter into your files (the transcript gate counts such lines against authorship; the kit's own files are excluded, but the starter's game code must not be copied). The entrypoint main.ts must reach its final content through at least 2 separate write/edit operations, and at least one of your files must be revised in a second assistant message (thinking_revised).
+- README.md must show the three live badge images linking to https://make.fun/bounty/turkey-run-game-01: the bounty badge, the rank badge and the reward badge for this slug and the repo you will create (ahmed1813544/turkey-run-game-01). MIT LICENSE with an SPDX identifier line.
+- main.ts runs twice and both runs must write byte-identical output. Keep the game deterministic in what main.ts copies (no timestamps in outputs).
+
+SCREENSHOTS (3 or 4, real renders of your own game in a browser, never edited or composited):
+- Playwright Chromium is installed: ~/.cache/ms-playwright/chromium-1148/chrome-linux/chrome, and playwright-core is in ~/workspace/shorts/kit-test-soldier/node_modules (a symlink farm — use absolute paths). Serve game/ locally, drive it in headless Chromium, and capture: (1) the title screen as the cover — name it so it sorts first, e.g. 1-title.png; (2) a run in play with the HUD visible, mid-chase, e.g. 2-play.png; (3) an end screen, e.g. 3-end.png; optionally a fourth showing the kitchen stage. Each screenshot at most 256 KiB, long side at most 1280 px, short side at least 480 px. To capture the end screen reliably you may add a small debug query parameter the game itself honours (e.g. a parameter that starts the game on a chosen screen) — that is still the game's own code rendering.
+- Verify the game actually plays: move the turkey, confirm the farmer chases, a knife/oven hit costs a life, corn adds score, both end screens are reachable, and restart works.
+
+VERIFY BEFORE YOU REPORT DONE:
+- Run main.ts twice with different MAKEFUN_OUTPUT_DIR values and confirm the two outputs are byte-identical (diff -r), dossier.json is present, and game/ + screenshots/ are inside the output.
+- Open the built output's game/index.html in the browser with the network off and confirm it loads and plays.
+- Check the gate limits: game/ at most 993 files/dirs and 48 MiB, index.html at most 1 MiB, screenshots 3-4 files each at most 256 KiB.
+
+GITHUB (only after the game is built and verified — the repo must be created AFTER the 02:00Z opening, which it will be):
+- Create a public repo named turkey-run-game-01 under ahmed1813544 (gh CLI is logged in as ahmed1813544, HTTPS protocol). Push the entry, set the repo About homepage to https://make.fun/bounty/turkey-run-game-01 and add the topic makefun. Report the repo URL and the pushed commit SHA.
+- If any git/gh step fails on a safety flag, stop at that step, verify what actually happened by reading (do not repeat the flagged command), and report the exact state so the parent run can finish it.
+
+ALSO WRITE in the entry dir:
+- prompt.txt containing your opening brief (the first message you received for this task) verbatim — the bundle step needs it.
+- A short BUILD-NOTES.md noting: game name, how to run it locally, the screenshot list, your verification results (byte-identical runs, sizes, gate limits), the repo URL + commit, and your session id (find it as the newest directory under ~/agents/).
+- Do NOT run the kit CLI bundle/check/submit commands — the parent run does bundling and submission after your session's usage rows land. Do NOT print or copy any credential or keypair file.
+
+Report back when done: repo URL, commit SHA, game name, what the game contains, screenshot list, verification results, and your session id. If anything is blocked, report exactly what and where, and stop — do not work around a block by copying the starter.
